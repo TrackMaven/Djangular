@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block body %}
+ng-app="pollApp"
+{% endblock %}
+{% block header %}
+Polls
+{% endblock %}
+
+{% block content %}
+<div ui-view></div>
+
+<script type="text/ng-template" id="questionList">
+    <ul>
+        <li ng-repeat="question in questions">
+            <a ui-sref="questionDetail({questionId:question.id})">
+                [[question.question_text]]
+            </a>
+        </li>
+    </ul>
+</script>
+
+
+
+<script type="text/ng-template" id="questionDetail">
+    <form class="form" ng-submit="vote()" ng-show="!voted">
+        <h2>[[question.question_text]]</h2>
+        <div class="radio" ng-repeat="choice in question.choices">
+          <label>
+            <input type="radio" ng-model="$parent.voteChoice" 
+                name="voteChoice" value="[[choice.id]]">
+            [[choice.choice_text]]
+          </label>
+        </div>
+        <input type="submit" class="btn btn-info" />
+    </form>
+    <div ng-show="voted">
+        <h2>[[question.question_text]]</h2>
+        <div ng-repeat="choice in question.choices" style="width: 50%">
+            [[choice.choice_text]] : [[choice.votes ]]
+            <div class="progress progress-striped">
+              <div class="progress-bar progress-bar-info" 
+                choice-percentage votes="[[choice.votes]]" total="[[question.totalVotes]]" >
+              </div>
+            </div>
+        </div>
+    </div>
+</script>
+{% endblock %}
+
+{% block javascript %}
+<script src="{{ STATIC_URL }}js/angular.js"></script>
+<script src="{{ STATIC_URL }}js/angular-ui-router.min.js"></script>
+<script src="{{ STATIC_URL}}js/app.js"></script>
+<script src="{{ STATIC_URL}}js/controllers.js"></script>
+<script src="{{ STATIC_URL}}js/directives.js"></script>
+<script src="{{ STATIC_URL}}js/services.js"></script>
+{% endblock %}

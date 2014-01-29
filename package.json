@@ -1,0 +1,12 @@
+{
+  "name": "TrackMaven",
+  "author": "TrackMaven Engineering",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-contrib-coffee": "~0.7.0"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  }
+}

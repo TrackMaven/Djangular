@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+    <head>
+        {% block head %}{% endblock %}
+        <title>{% block title %}Django District Demo{% endblock %}</title>
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css" />
+    </head>
+    <body {% block body%} {% endblock %}>
+        <div class="container">
+            <div class="page-header">
+                <h1>{% block header %}Demos{% endblock %}</h1>
+                <p class="lead"><!-- PLACE TO PUT DEMOS --></p>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
+        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+        {% block javascript %}
+        {% endblock %}
+  </body>
+</html>

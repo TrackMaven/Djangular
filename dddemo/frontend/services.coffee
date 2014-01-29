@@ -44,7 +44,7 @@ services.factory('Question', (Choice, $http, $log) ->
     return Question
 )
 
-services.factory('Questions', ($q, $log, $http, Question) ->
+services.factory('Questions', ($log, $http, Question) ->
     questions = {
         all : []
     }
@@ -55,16 +55,12 @@ services.factory('Questions', ($q, $log, $http, Question) ->
             questions['all'].push(new Question(question))
 
     fetch: ->
-        deferred = $q.defer()
         $http({method: 'GET', url: '/polls/questions'})
             .success (data) =>
                 @fromServer(data)
                 $log.info("Succesfully fetched questions.")
-                deferred.resolve(data)
             .error (data) =>
                 $log.info("Failed to fetch questions.")
-                deferred.reject(data)
-        return deferred.promise
 
     data : ->
         return questions

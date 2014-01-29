@@ -81,7 +81,7 @@
     return Question;
   });
 
-  services.factory('Questions', function($q, $log, $http, Question) {
+  services.factory('Questions', function($log, $http, Question) {
     var questions;
     questions = {
       all: []
@@ -98,21 +98,16 @@
         return _results;
       },
       fetch: function() {
-        var deferred,
-          _this = this;
-        deferred = $q.defer();
-        $http({
+        var _this = this;
+        return $http({
           method: 'GET',
           url: '/polls/questions'
         }).success(function(data) {
           _this.fromServer(data);
-          $log.info("Succesfully fetched questions.");
-          return deferred.resolve(data);
+          return $log.info("Succesfully fetched questions.");
         }).error(function(data) {
-          $log.info("Failed to fetch questions.");
-          return deferred.reject(data);
+          return $log.info("Failed to fetch questions.");
         });
-        return deferred.promise;
       },
       data: function() {
         return questions;

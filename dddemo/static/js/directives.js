@@ -3,7 +3,7 @@
 
   directives = angular.module('pollApp.directives', []);
 
-  directives.directive('choicePercentage', function($log) {
+  directives.directive('choicePercentage', function() {
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
@@ -12,7 +12,6 @@
           var percentage, total, votes;
           votes = parseInt(attrs.votes);
           total = parseInt(attrs.total);
-          $log.info(attrs);
           if (total > 0) {
             percentage = votes / total * 100;
           } else {

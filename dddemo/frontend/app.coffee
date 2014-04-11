@@ -33,17 +33,9 @@ app.config(($interpolateProvider, $stateProvider, $urlRouterProvider) ->
 
 app.config(($httpProvider) ->
     getCookie = (name) ->
-        if document.cookie and document.cookie isnt ""
-            cookies = document.cookie.split(";")
-            i = 0
-            while i < cookies.length
-                cookie = jQuery.trim(cookies[i])
-                # Does this cookie string begin with the name we want?
-                if cookie.substring(0, name.length + 1) is (name + "=")
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
-                    break
-                i++
-        cookieValue
+        for cookie in document.cookie.split ';' when cookie and name is (cookie.trim().split '=')[0]
+            return decodeURIComponent cookie.trim()[(1 + name.length)...]
+        null
     # Add Header to comply with Django's CSRF implementation
     $httpProvider.defaults.headers.common['X-CSRFToken'] = getCookie("csrftoken")
 )

@@ -35,20 +35,15 @@
   app.config(function($httpProvider) {
     var getCookie;
     getCookie = function(name) {
-      var cookie, cookieValue, cookies, i;
-      if (document.cookie && document.cookie !== "") {
-        cookies = document.cookie.split(";");
-        i = 0;
-        while (i < cookies.length) {
-          cookie = jQuery.trim(cookies[i]);
-          if (cookie.substring(0, name.length + 1) === (name + "=")) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-          i++;
+      var cookie, _i, _len, _ref;
+      _ref = document.cookie.split(';');
+      for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+        cookie = _ref[_i];
+        if (cookie && name === (cookie.trim().split('='))[0]) {
+          return decodeURIComponent(cookie.trim().slice(1 + name.length));
         }
       }
-      return cookieValue;
+      return null;
     };
     return $httpProvider.defaults.headers.common['X-CSRFToken'] = getCookie("csrftoken");
   });

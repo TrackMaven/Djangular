@@ -67,7 +67,7 @@ DATABASES = {
 }
 
 TEMPLATE_DIRS = (
-    PROJECT_DIR.child("dddemo").child('templates'),
+    PROJECT_DIR.child("djangular").child('templates'),
 )
 
 # Internationalization
